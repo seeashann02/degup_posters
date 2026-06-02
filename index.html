@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Degup — Poster Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        background: #0c0c1a;
+        min-height: 100vh;
+        display: flex; flex-direction: column; align-items: center;
+        padding: 0 0 140px;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ── Site header ── */
+    .site-header {
+        width: 100%; background: rgba(255,255,255,.025);
+        border-bottom: 1px solid rgba(255,255,255,.07);
+        padding: 22px 60px;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .site-header-brand { display: flex; align-items: center; gap: 14px; }
+    .site-header-logo { width: 32px; height: 32px; object-fit: contain; }
+    .site-header-name {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px; font-weight: 900; color: #fff;
+        letter-spacing: .1em; text-transform: uppercase; display: block;
+    }
+    .site-header-sub {
+        font-size: 11px; font-weight: 500; color: rgba(255,255,255,.3);
+        display: block; margin-top: 2px;
+    }
+    .site-header-pills { display: flex; gap: 8px; align-items: center; }
+    .site-pill {
+        font-family: 'Manrope', sans-serif;
+        font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+        color: rgba(255,255,255,.38);
+        background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+        border-radius: 999px; padding: 5px 12px; white-space: nowrap;
+    }
+
+    /* ── Batch sections ── */
+    .batch-section {
+        width: 100%; max-width: 1280px;
+        padding: 72px 60px 0;
+    }
+    .batch-header-row {
+        display: flex; align-items: flex-end; justify-content: space-between;
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgba(255,255,255,.07);
+        margin-bottom: 44px;
+    }
+    .batch-eyebrow {
+        font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 800;
+        letter-spacing: .18em; text-transform: uppercase;
+        color: rgba(255,255,255,.3); margin-bottom: 8px;
+    }
+    .batch-heading {
+        font-family: 'Manrope', sans-serif;
+        font-size: 26px; font-weight: 900; letter-spacing: -0.025em; color: #fff;
+    }
+    .batch-heading span {
+        background: linear-gradient(115deg, #7cc8ff, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .batch-desc {
+        font-size: 12px; font-weight: 500; color: rgba(255,255,255,.28);
+        margin-top: 6px; letter-spacing: .01em;
+    }
+    .batch-count-tag {
+        font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700;
+        letter-spacing: .13em; text-transform: uppercase;
+        color: rgba(255,255,255,.35);
+        background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+        border-radius: 999px; padding: 7px 16px; white-space: nowrap; margin-bottom: 4px;
+    }
+    .cards-row { display: flex; flex-wrap: wrap; gap: 40px; }
+
+    /* ── Individual card wrapper ── */
+    .poster-wrap { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .col-label {
+        color: rgba(255,255,255,.28); font-size: 9.5px; font-weight: 700;
+        letter-spacing: .16em; text-transform: uppercase;
+    }
+    .page-footer {
+        font-size: 11px; font-weight: 500; color: rgba(255,255,255,.15);
+        letter-spacing: .06em; margin-top: 80px; text-align: center;
+    }
+
+    /* ─── SHARED CARD ─── */
+    .poster {
+        width: 520px; height: 660px;
+        position: relative; overflow: hidden;
+        border-radius: 24px; display: flex; flex-direction: column;
+    }
+
+    /* ══════ DARK ══════ */
+    .poster-dark {
+        background: linear-gradient(160deg, #09091f 0%, #12133a 55%, #170f38 100%);
+    }
+    .poster-dark .glow-tr {
+        position: absolute; top: -100px; right: -100px;
+        width: 340px; height: 340px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(200,180,255,.2) 0%, transparent 68%);
+        pointer-events: none;
+    }
+    .poster-dark .glow-bl {
+        position: absolute; bottom: -60px; left: -60px;
+        width: 260px; height: 260px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,180,255,.15) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .badge-dark {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
+        border-radius: 999px; padding: 6px 15px;
+        font-size: 10px; font-weight: 700; letter-spacing: .13em;
+        text-transform: uppercase; color: rgba(255,255,255,.6); width: fit-content;
+    }
+    .dot { width:7px; height:7px; border-radius:50%; background:#4ade80; flex-shrink:0; }
+
+    .headline-dark {
+        font-family: 'Manrope', sans-serif;
+        font-size: 56px; font-weight: 900; line-height: 1.04;
+        letter-spacing: -0.03em; color: #fff; margin-top: 26px;
+    }
+    .grad-dark {
+        background: linear-gradient(115deg, #7cc8ff 20%, #a78bfa 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .subline-dark {
+        font-family: 'Manrope', sans-serif;
+        font-size: 18px; font-weight: 600; letter-spacing: -0.02em;
+        color: rgba(255,255,255,.48); margin-top: 16px;
+    }
+    .divider-dark {
+        width: 100%; height: 1px;
+        background: linear-gradient(90deg, rgba(124,200,255,.45), rgba(167,139,250,.25), transparent);
+        margin-top: 30px; margin-bottom: 26px;
+    }
+    .meet-dark {
+        font-family: 'Manrope', sans-serif;
+        font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #fff;
+    }
+    .meet-dark span {
+        background: linear-gradient(115deg, #7cc8ff 20%, #a78bfa 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tagline-dark {
+        font-size: 13px; color: rgba(255,255,255,.35); font-weight: 500; margin-top: 9px;
+    }
+
+    /* Animated ECG background line */
+    .ecg-area {
+        position: absolute; left: 0; right: 0; bottom: 78px; pointer-events: none;
+    }
+    .ecg-path {
+        stroke-dasharray: 700;
+        animation: ecg 3.5s linear infinite;
+        filter: drop-shadow(0 0 6px rgba(124,199,255,.65));
+    }
+    @keyframes ecg {
+        from { stroke-dashoffset: 700; }
+        to   { stroke-dashoffset: 0; }
+    }
+
+    .bottom-row { display: flex; align-items: center; justify-content: space-between; }
+    .logo-row   { display: flex; align-items: center; gap: 10px; }
+
+    .logo-name-dark {
+        font-family: 'Manrope', sans-serif;
+        font-weight: 800; font-size: 14px; color: #fff;
+        letter-spacing: .05em; text-transform: uppercase;
+    }
+    .url-dark { font-size:11px; color:rgba(255,255,255,.28); letter-spacing:.06em; }
+
+    .poster-dark .inner {
+        position: relative; z-index: 2;
+        padding: 48px 48px 44px; height: 100%;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    /* ══════ LIGHT ══════ */
+    .poster-light-wrapper {
+        position: relative; border-radius: 26px; padding: 2px;
+        background: linear-gradient(140deg, #7ec8e3 0%, #b8a0f8 45%, #f9a8d4 100%);
+        width: fit-content;
+    }
+    .poster-light {
+        background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px; /* 1:1 Instagram square */
+    }
+    .poster-light .glow-tr {
+        position: absolute; top: -80px; right: -80px;
+        width: 280px; height: 280px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(190,170,255,.3) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-light .glow-bl {
+        position: absolute; bottom: -50px; left: -50px;
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,200,255,.2) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .headline-light {
+        font-family: 'Manrope', sans-serif;
+        font-size: 72px; font-weight: 900; line-height: 1.04;
+        letter-spacing: -0.03em; color: #10132a;
+    }
+    .grad-light {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .subline-light {
+        font-family: 'Manrope', sans-serif;
+        font-size: 19px; font-weight: 600; letter-spacing: -0.02em;
+        color: rgba(16,19,42,.45); margin-top: 14px;
+    }
+    .divider-light {
+        width: 100%; height: 1px;
+        background: linear-gradient(90deg, #7cc8e3, rgba(167,139,250,.4), transparent);
+        margin-top: 18px; margin-bottom: 16px;
+    }
+    .meet-light {
+        font-family: 'Manrope', sans-serif;
+        font-size: 28px; font-weight: 800; letter-spacing: -0.03em; color: #10132a;
+    }
+    .meet-light span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .tagline-light { font-size: 13px; color: rgba(16,19,42,.38); font-weight: 500; margin-top: 6px; }
+
+    /* ECG band on light card */
+    .ecg-light-wrap {
+        width: 100%;
+        padding: 12px 0 6px;
+        flex-shrink: 0;
+    }
+    .ecg-light-path {
+        stroke-dasharray: 620;
+        animation: ecg-light 3.5s linear infinite;
+        filter: drop-shadow(0 0 4px rgba(100,140,255,.5));
+    }
+    @keyframes ecg-light {
+        from { stroke-dashoffset: 620; }
+        to   { stroke-dashoffset: 0; }
+    }
+
+    .logo-name-light {
+        font-family: 'Manrope', sans-serif;
+        font-weight: 800; font-size: 14px; color: #10132a;
+        letter-spacing: .05em; text-transform: uppercase;
+    }
+    .url-light { font-size:11px; color:rgba(16,19,42,.3); letter-spacing:.06em; }
+    .poster-light .inner {
+        position: relative; z-index: 2;
+        padding: 52px 52px 48px; height: 100%;
+        display: flex; flex-direction: column; justify-content: center;
+    }
+    .poster-light .inner .content-top { flex: 0; }
+    .poster-light .inner .ecg-light-wrap { flex: 0; padding: 0; margin-top: 36px; }
+    .poster-light .inner .bottom-row { flex: 0; margin-top: 20px; }
+
+    .degup-logo-svg { width: 42px; height: 36px; }
+
+    /* ══════ IMPACT / LIFE CARD ══════ */
+    .poster-impact {
+        background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px;
+    }
+    .poster-impact .glow-tr {
+        position: absolute; top: -80px; right: -80px;
+        width: 280px; height: 280px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(190,170,255,.3) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-impact .glow-bl {
+        position: absolute; bottom: -50px; left: -50px;
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,200,255,.2) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-impact .inner-impact {
+        position: relative; z-index: 2;
+        padding: 48px 48px 44px; height: 100%;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .headline-impact {
+        font-family: 'Manrope', sans-serif;
+        font-size: 44px; font-weight: 900; line-height: 1.05;
+        letter-spacing: -0.03em; color: #10132a;
+    }
+    .headline-impact-2 {
+        font-family: 'Manrope', sans-serif;
+        font-size: 34px; font-weight: 900; line-height: 1.1;
+        letter-spacing: -0.03em; margin-top: 4px;
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .subline-impact {
+        font-family: 'Manrope', sans-serif;
+        font-size: 15px; font-weight: 500; letter-spacing: -0.01em;
+        color: rgba(16,19,42,.4); margin-top: 10px; line-height: 1.5;
+    }
+    .divider-impact {
+        width: 100%; height: 1px; margin-top: 20px;
+        background: linear-gradient(90deg, rgba(124,200,255,.5), rgba(167,139,250,.25), transparent);
+    }
+    .icon-grid {
+        display: flex; gap: 10px; width: 100%;
+    }
+    .icon-card {
+        flex: 1;
+        background: rgba(255,255,255,.7);
+        border-radius: 20px;
+        padding: 22px 8px 18px;
+        display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .icon-card-label {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px; font-weight: 700; letter-spacing: -0.01em;
+        color: #10132a;
+    }
+    .ecg-impact-path {
+        stroke-dasharray: 620;
+        animation: ecg-light 3.5s linear infinite;
+        filter: drop-shadow(0 0 4px rgba(100,140,255,.5));
+    }
+
+    /* ══════ PROBLEM CARD ══════ */
+    .poster-problem {
+        background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px;
+    }
+    .poster-problem .glow-tr {
+        position: absolute; top: -80px; right: -80px;
+        width: 280px; height: 280px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(190,170,255,.25) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-problem .glow-bl {
+        position: absolute; bottom: -50px; left: -50px;
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,200,255,.18) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-problem .inner-problem {
+        position: relative; z-index: 2;
+        padding: 44px 44px 40px; height: 100%;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .problem-label {
+        font-family: 'Manrope', sans-serif;
+        font-size: 11px; font-weight: 800; letter-spacing: .12em;
+        text-transform: uppercase; color: rgba(16,19,42,.32);
+    }
+    .headline-problem {
+        font-family: 'Manrope', sans-serif;
+        font-size: 30px; font-weight: 900; line-height: 1.1;
+        letter-spacing: -0.03em; color: #10132a; margin-top: 6px;
+    }
+    .headline-problem span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    /* Chat bubbles */
+    .chat-thread { display: flex; flex-direction: column; gap: 7px; }
+    .chat-r { display: flex; justify-content: flex-end; }
+    .chat-l { display: flex; justify-content: flex-start; }
+    .bub {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 12px; font-weight: 500;
+        line-height: 1.4; padding: 8px 13px; max-width: 80%;
+    }
+    .bub-r {
+        background: linear-gradient(135deg, #1a7fd4, #7c4dda);
+        color: #fff; border-radius: 16px 16px 4px 16px;
+    }
+    .bub-l {
+        background: rgba(16,19,42,.08); color: rgba(16,19,42,.65);
+        border-radius: 16px 16px 16px 4px;
+        border: 1px solid rgba(16,19,42,.06);
+    }
+    .sk1 { transform: rotate(-0.8deg); }
+    .sk2 { transform: rotate(1.3deg); }
+    /* Checklist */
+    .checklist-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .check-card {
+        background: rgba(255,255,255,.82);
+        border: 1px solid rgba(16,19,42,.07);
+        border-radius: 14px; padding: 14px 13px;
+        display: flex; align-items: flex-start; gap: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    }
+    .check-card svg { flex-shrink: 0; margin-top: 1px; }
+    .check-card:nth-child(1) { transform: rotate(-0.7deg); }
+    .check-card:nth-child(2) { transform: rotate(1.0deg); }
+    .check-card:nth-child(3) { transform: rotate(0.6deg); }
+    .check-card:nth-child(4) { transform: rotate(-1.1deg); }
+    .check-text {
+        font-family: 'Manrope', sans-serif;
+        font-size: 12px; font-weight: 700; color: #10132a;
+        line-height: 1.38; letter-spacing: -0.01em;
+    }
+    .friction-line {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px; font-weight: 600; color: rgba(16,19,42,.52);
+        letter-spacing: -0.01em;
+    }
+    .friction-line span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        font-weight: 700;
+    }
+    .ecg-prob-path {
+        stroke-dasharray: 620;
+        animation: ecg-light 3.5s linear infinite;
+        filter: drop-shadow(0 0 4px rgba(100,140,255,.5));
+    }
+
+    /* ══════ SOLUTION CARD ══════ */
+    .poster-solution {
+        background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px;
+    }
+    .poster-solution .glow-tr {
+        position: absolute; top: -80px; right: -80px;
+        width: 280px; height: 280px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(190,170,255,.25) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-solution .glow-bl {
+        position: absolute; bottom: -50px; left: -50px;
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,200,255,.18) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-solution .inner-solution {
+        position: relative; z-index: 2;
+        padding: 44px 44px 40px; height: 100%;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .solution-label {
+        font-family: 'Manrope', sans-serif;
+        font-size: 11px; font-weight: 800; letter-spacing: .12em;
+        text-transform: uppercase; color: rgba(16,19,42,.32);
+    }
+    .headline-solution {
+        font-family: 'Manrope', sans-serif;
+        font-size: 36px; font-weight: 900; line-height: 1.08;
+        letter-spacing: -0.03em; color: #10132a;
+    }
+    .headline-solution span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .divider-solution {
+        width: 100%; height: 1px; margin-top: 20px;
+        background: linear-gradient(90deg, rgba(124,200,255,.5), rgba(167,139,250,.25), transparent);
+    }
+    .sol-tile-grid { display: flex; gap: 10px; width: 100%; }
+    .sol-tile {
+        flex: 1; background: rgba(255,255,255,.72); border-radius: 18px;
+        padding: 18px 8px 16px; display: flex; flex-direction: column;
+        align-items: center; gap: 9px;
+    }
+    .sol-tile-icon {
+        width: 44px; height: 44px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .sol-tile-label {
+        font-family: 'Manrope', sans-serif;
+        font-size: 12px; font-weight: 800; color: #10132a;
+        letter-spacing: -0.01em; text-align: center; line-height: 1.25;
+    }
+    .sol-tile-desc {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 10.5px; font-weight: 500; color: rgba(16,19,42,.42);
+        text-align: center; line-height: 1.35;
+    }
+    .ecg-sol-path {
+        stroke-dasharray: 620;
+        animation: ecg-light 3.5s linear infinite;
+        filter: drop-shadow(0 0 4px rgba(100,140,255,.5));
+    }
+
+    /* ══════ STATS POST ══════ */
+    .poster-stats {
+        background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px;
+    }
+    .poster-stats .glow-tr {
+        position: absolute; top: -80px; right: -80px;
+        width: 280px; height: 280px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(190,170,255,.3) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-stats .glow-bl {
+        position: absolute; bottom: -50px; left: -50px;
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,200,255,.2) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-stats .inner-stats {
+        position: relative; z-index: 2;
+        padding: 44px 44px 40px; height: 100%;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .stats-badge {
+        display: inline-flex; align-items: center; gap: 7px;
+        font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 800;
+        letter-spacing: .12em; text-transform: uppercase; color: rgba(16,19,42,.38);
+    }
+    .stats-pulse {
+        width: 7px; height: 7px; border-radius: 50%; background: #fb923c; flex-shrink: 0;
+        animation: pulse-glow 2s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+        0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(251,146,60,.5); }
+        50% { opacity: .7; box-shadow: 0 0 0 4px rgba(251,146,60,0); }
+    }
+    .headline-stats {
+        font-family: 'Manrope', sans-serif;
+        font-size: 30px; font-weight: 900; line-height: 1.06;
+        letter-spacing: -0.03em; color: #10132a; margin-top: 8px;
+    }
+    .headline-stats span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .divider-stats {
+        width: 100%; height: 1px; margin-top: 16px;
+        background: linear-gradient(90deg, rgba(124,200,255,.5), rgba(167,139,250,.25), transparent);
+    }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat-card {
+        background: rgba(255,255,255,.88);
+        border-radius: 18px; padding: 16px 16px 14px;
+        box-shadow: 0 6px 24px rgba(100,140,255,.13), 0 1px 4px rgba(0,0,0,.05);
+        border: 1px solid rgba(255,255,255,.95);
+        animation: card-float 5s ease-in-out infinite;
+    }
+    .stat-card:nth-child(2) { animation-delay: -1.25s; }
+    .stat-card:nth-child(3) { animation-delay: -2.5s; }
+    .stat-card:nth-child(4) { animation-delay: -3.75s; }
+    @keyframes card-float {
+        0%, 100% { transform: translateY(0px); }
+        50%       { transform: translateY(-5px); }
+    }
+    .stat-card-num {
+        font-family: 'Manrope', sans-serif;
+        font-size: 21px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1;
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-card-desc {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 10.5px; font-weight: 500; color: rgba(16,19,42,.42);
+        line-height: 1.4; margin-top: 6px; white-space: nowrap;
+    }
+    .emotional-close {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px; font-weight: 700; letter-spacing: -0.01em;
+        color: rgba(16,19,42,.52); line-height: 1.6; font-style: italic;
+        text-align: center;
+        background: linear-gradient(135deg, rgba(26,127,212,.1) 0%, rgba(124,77,218,.1) 100%);
+        border-radius: 14px; padding: 10px 20px;
+        border: 1px solid rgba(100,140,255,.2);
+        width: fit-content; margin: 0 auto;
+    }
+    .emotional-close span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        font-style: normal; font-weight: 800;
+    }
+    .ecg-stats-path {
+        stroke-dasharray: 620;
+        animation: ecg-light 3.5s linear infinite;
+        filter: drop-shadow(0 0 4px rgba(100,140,255,.5));
+    }
+
+    /* ══════ LIFE FIT POST ══════ */
+    /* ══════ LIFE FIT POST — Minimalist ring redesign ══════ */
+    .poster-lifefit {
+        background: linear-gradient(145deg, #f6f7ff 0%, #ede8ff 65%, #e6e0ff 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px;
+    }
+    .poster-lifefit .glow-tr {
+        position: absolute; top: -60px; right: -60px;
+        width: 300px; height: 300px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(123,53,200,.15) 0%, transparent 68%);
+        pointer-events: none;
+    }
+    .poster-lifefit .glow-bl {
+        position: absolute; bottom: -50px; left: -50px;
+        width: 240px; height: 240px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(28,196,194,.13) 0%, transparent 68%);
+        pointer-events: none;
+    }
+    .poster-lifefit .inner-lifefit {
+        position: relative; z-index: 2;
+        height: 100%; display: flex; flex-direction: column;
+    }
+    /* hero circle area — fills all space above the content strip */
+    .lf-hero-area {
+        flex: 1; display: flex; align-items: center; justify-content: center;
+    }
+    /* thin gradient rule separating hero from content */
+    .lf-rule {
+        height: 1px; margin: 0 44px;
+        background: linear-gradient(90deg, rgba(28,196,194,.4), rgba(123,53,200,.25), transparent);
+        flex-shrink: 0;
+    }
+    /* bottom content strip */
+    .lf-content {
+        padding: 20px 44px 34px; flex-shrink: 0;
+    }
+    .lf-content {
+        padding: 22px 44px 34px; flex-shrink: 0;
+    }
+    .headline-lifefit {
+        font-family: 'Manrope', sans-serif;
+        font-size: 22px; font-weight: 900; line-height: 1.2;
+        letter-spacing: -0.025em; color: #10132a;
+    }
+    .headline-lifefit span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .subline-lifefit {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px; font-weight: 600; color: rgba(16,19,42,.4);
+        line-height: 1.55; margin-top: 10px;
+    }
+    .lf-statement {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 12.5px; font-weight: 500; color: rgba(16,19,42,.52);
+        line-height: 1.55; margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(16,19,42,.07);
+    }
+    .lf-footer {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-top: 16px;
+    }
+    .lf-url {
+        font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700;
+        letter-spacing: .06em; color: rgba(16,19,42,.18);
+    }
+
+    /* ══════ CTA CARD ══════ */
+    .poster-cta {
+        background: linear-gradient(160deg, #09091f 0%, #12133a 55%, #1a0f38 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px;
+    }
+    .poster-cta .glow-tr {
+        position: absolute; top: -80px; right: -80px;
+        width: 320px; height: 320px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,160,80,.18) 0%, rgba(167,139,250,.14) 50%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-cta .glow-bl {
+        position: absolute; bottom: -60px; left: -60px;
+        width: 260px; height: 260px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,180,255,.15) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-cta .inner-cta {
+        position: relative; z-index: 2;
+        padding: 44px 44px 40px; height: 100%;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .headline-cta {
+        font-family: 'Manrope', sans-serif;
+        font-size: 50px; font-weight: 900; line-height: 1.05;
+        letter-spacing: -0.03em; color: #fff;
+    }
+    .headline-cta span {
+        background: linear-gradient(115deg, #7cc8ff 20%, #a78bfa 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .listen-list { display: flex; flex-direction: column; gap: 11px; }
+    .listen-item { display: flex; align-items: center; gap: 13px; }
+    .listen-item span {
+        font-family: 'Manrope', sans-serif;
+        font-size: 17px; font-weight: 700; color: rgba(255,255,255,.82);
+        letter-spacing: -0.02em;
+    }
+    .cta-box {
+        display: flex; align-items: center; gap: 14px;
+        background: linear-gradient(135deg, rgba(28,196,194,.16) 0%, rgba(123,53,200,.16) 100%);
+        border: 1px solid rgba(124,200,255,.22);
+        border-radius: 16px; padding: 16px 18px;
+    }
+    .cta-box p {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 13px; font-weight: 600; color: rgba(255,255,255,.72);
+        line-height: 1.5;
+    }
+    .tagline-cta {
+        font-family: 'Manrope', sans-serif;
+        font-size: 16px; font-weight: 800; letter-spacing: -0.02em;
+        background: linear-gradient(115deg, #7cc8ff 20%, #a78bfa 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .ecg-cta-path {
+        stroke-dasharray: 700;
+        animation: ecg 3.5s linear infinite;
+        filter: drop-shadow(0 0 6px rgba(124,199,255,.6));
+    }
+
+    /* ══════ HOW DEGUP HELPS POST ══════ */
+    .poster-howdegup {
+        background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px;
+    }
+    .poster-howdegup .glow-tr {
+        position: absolute; top: -80px; right: -80px;
+        width: 300px; height: 300px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(124,77,218,.22) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-howdegup .glow-bl {
+        position: absolute; bottom: -50px; left: -50px;
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(28,196,194,.18) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-howdegup .inner-howdegup {
+        position: relative; z-index: 2;
+        padding: 44px 44px 40px; height: 100%;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .headline-howdegup {
+        font-family: 'Manrope', sans-serif;
+        font-size: 28px; font-weight: 900; line-height: 1.08;
+        letter-spacing: -0.03em; color: #10132a; margin-top: 6px;
+    }
+    .headline-howdegup span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .subline-howdegup {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 12.5px; font-weight: 500; color: rgba(16,19,42,.4);
+        line-height: 1.45; margin-top: 5px;
+    }
+    .divider-howdegup {
+        width: 100%; height: 1px; margin-top: 14px;
+        background: linear-gradient(90deg, rgba(124,200,255,.5), rgba(167,139,250,.25), transparent);
+    }
+    /* Step flow card */
+    .step-flow-card {
+        background: rgba(255,255,255,.82);
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,.96);
+        box-shadow: 0 6px 28px rgba(100,140,255,.12), 0 1px 4px rgba(0,0,0,.04);
+        overflow: hidden;
+    }
+    .step-flow-item {
+        display: flex; align-items: center; gap: 18px;
+        padding: 15px 18px;
+        border-bottom: 1px solid rgba(16,19,42,.05);
+        position: relative;
+    }
+    .step-flow-item:last-child { border-bottom: none; }
+    .step-flow-item:nth-child(1) { background: rgba(28,196,194,.04); }
+    .step-flow-item:nth-child(2) { background: rgba(26,130,216,.04); }
+    .step-flow-item:nth-child(3) { background: rgba(123,53,200,.04); }
+    .step-flow-num {
+        font-family: 'Manrope', sans-serif;
+        font-size: 36px; font-weight: 900; line-height: 1;
+        letter-spacing: -0.05em; flex-shrink: 0;
+    }
+    .sfn-1 {
+        background: linear-gradient(135deg, #1CC4C2, #1A82D8);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .sfn-2 {
+        background: linear-gradient(135deg, #1A82D8, #7B35C8);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .sfn-3 {
+        background: linear-gradient(135deg, #7B35C8, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .step-flow-content { display: flex; flex-direction: column; gap: 3px; }
+    .step-flow-title {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13.5px; font-weight: 800; color: #10132a;
+        letter-spacing: -0.01em; line-height: 1.2;
+    }
+    .step-flow-desc {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 11px; font-weight: 500; color: rgba(16,19,42,.44);
+        line-height: 1.4;
+    }
+    .ecg-how-path {
+        stroke-dasharray: 620;
+        animation: ecg-light 3.5s linear infinite;
+        filter: drop-shadow(0 0 4px rgba(100,140,255,.5));
+    }
+
+    /* ── Team note ── */
+    .team-note {
+        width: 100%; max-width: 1280px;
+        padding: 40px 60px 0;
+    }
+    .team-note-inner {
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 16px;
+        padding: 24px 32px;
+        display: flex; align-items: flex-start; gap: 18px;
+    }
+    .team-note-icon {
+        width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+        background: rgba(124,200,255,.1);
+        border: 1px solid rgba(124,200,255,.2);
+        display: flex; align-items: center; justify-content: center;
+    }
+    .team-note-body { display: flex; flex-direction: column; gap: 4px; }
+    .team-note-heading {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px; font-weight: 800; color: #fff;
+        letter-spacing: -0.01em;
+    }
+    .team-note-text {
+        font-size: 12px; font-weight: 500;
+        color: rgba(255,255,255,.38); line-height: 1.6;
+    }
+    .team-note-text strong { color: rgba(255,255,255,.6); font-weight: 600; }
+
+    /* ── Batch 02 display order ── */
+    .b2-lf { order: 1; }
+    .b2-st { order: 2; }
+    .b2-sl { order: 3; }
+    .b2-hw { order: 4; }
+
+    /* ══════ SLOT STRESS POST ══════ */
+    .poster-slots {
+        background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
+        border-radius: 24px; overflow: hidden;
+        width: 520px; height: 520px;
+    }
+    .poster-slots .glow-tr {
+        position: absolute; top: -80px; right: -80px;
+        width: 280px; height: 280px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(190,170,255,.3) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-slots .glow-bl {
+        position: absolute; bottom: -50px; left: -50px;
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,200,255,.2) 0%, transparent 70%);
+        pointer-events: none;
+    }
+    .poster-slots .inner-slots {
+        position: relative; z-index: 2;
+        padding: 44px 44px 40px; height: 100%;
+        display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .headline-slots {
+        font-family: 'Manrope', sans-serif;
+        font-size: 30px; font-weight: 900; line-height: 1.08;
+        letter-spacing: -0.03em; color: #10132a; margin-top: 6px;
+    }
+    .headline-slots span {
+        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    /* 2×2 burden grid */
+    .burden-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .burden-card {
+        background: rgba(255,255,255,.82);
+        border: 1px solid rgba(16,19,42,.07);
+        border-radius: 14px; padding: 13px 12px;
+        display: flex; align-items: center; gap: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    }
+    .burden-card:nth-child(1) { transform: rotate(-0.7deg); }
+    .burden-card:nth-child(2) { transform: rotate(1.0deg); }
+    .burden-card:nth-child(3) { transform: rotate(0.6deg); }
+    .burden-card:nth-child(4) { transform: rotate(-1.1deg); }
+    .burden-icon {
+        width: 32px; height: 32px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+    }
+    .burden-text {
+        font-family: 'Manrope', sans-serif;
+        font-size: 11.5px; font-weight: 700; color: #10132a;
+        letter-spacing: -0.01em; line-height: 1.35;
+    }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="site-header-brand">
+        <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png" class="site-header-logo" alt="Degup">
+        <div>
+            <span class="site-header-name">DEGUP</span>
+            <span class="site-header-sub">Social Media Poster Preview · Internal Use</span>
+        </div>
+    </div>
+    <div class="site-header-pills">
+        <span class="site-pill">8 Posters</span>
+        <span class="site-pill">Instagram 1:1</span>
+        <span class="site-pill">2 Batches</span>
+    </div>
+</header>
+
+<div class="team-note">
+    <div class="team-note-inner">
+        <div class="team-note-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#7cc8ff" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="9" cy="7" r="4" stroke="#7cc8ff" stroke-width="2"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="#7cc8ff" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="team-note-body">
+            <span class="team-note-heading">Hey team 👋</span>
+            <p class="team-note-text">
+                This page will be used to view all of our posters for posting.
+                Right-click any card → <strong>Inspect → Screenshot node</strong> to export.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     BATCH 01 — First Posting (5 posts)
+═════════════════════════════════════════════════════════════ -->
+<section class="batch-section">
+    <div class="batch-header-row">
+        <div>
+            <p class="batch-eyebrow">Batch 01 · First Posting</p>
+            <h2 class="batch-heading">First <span>Posting</span></h2>
+            <p class="batch-desc">Introduction · Life Impact · The Problem · What Degup Does · Closing CTA</p>
+        </div>
+        <span class="batch-count-tag">5 Posts</span>
+    </div>
+    <div class="cards-row">
+
+    <!-- ══ LIGHT CARD ══ -->
+    <div class="poster-wrap">
+        <p class="col-label">Introduction Post — Instagram 1:1</p>
+        <div class="poster-light-wrapper">
+            <div class="poster poster-light">
+                <div class="glow-tr"></div>
+                <div class="glow-bl"></div>
+                <div class="inner">
+                    <div class="content-top">
+                        <h1 class="headline-light">Dialysis should<br>fit into <span class="grad-light">life.</span></h1>
+                        <p class="subline-light">Not the other way around.</p>
+                    </div>
+
+                    <!-- ECG — middle flex item -->
+                    <div class="ecg-light-wrap">
+                        <svg width="100%" height="52" viewBox="0 0 424 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="ecg-lt-g" x1="0" y1="0" x2="424" y2="0" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%"   stop-color="#1CC4C2" stop-opacity="0.3"/>
+                                    <stop offset="22%"  stop-color="#1A82D8" stop-opacity="0.85"/>
+                                    <stop offset="50%"  stop-color="#7B35C8"/>
+                                    <stop offset="74%"  stop-color="#C82E35" stop-opacity="0.85"/>
+                                    <stop offset="100%" stop-color="#F27030" stop-opacity="0.3"/>
+                                </linearGradient>
+                            </defs>
+                            <path class="ecg-light-path"
+                                d="M0,26 L95,26 L106,23 L117,29 L127,7 L137,46 L147,26 L170,26 L183,17 L196,26 L260,26 L272,22 L282,30 L290,12 L298,42 L307,26 L330,26 L340,21 L350,26 L424,26"
+                                stroke="url(#ecg-lt-g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+
+                    <!-- Footer — bottom flex item -->
+                    <div class="bottom-row">
+                        <div class="logo-row">
+                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png" style="width:34px;height:34px;object-fit:contain;" alt="Degup">
+                            <span class="logo-name-light">DEGUP</span>
+                        </div>
+                        <span class="url-light">degup.my</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ IMPACT CARD ══ -->
+    <div class="poster-wrap">
+        <p class="col-label">Life Impact Post — Instagram 1:1</p>
+        <div class="poster-light-wrapper">
+            <div class="poster poster-impact">
+                <div class="glow-tr"></div>
+                <div class="glow-bl"></div>
+                <div class="inner-impact">
+
+                    <!-- Headline block -->
+                    <div>
+                        <h1 class="headline-impact">Treatment is not<br>just an appointment.</h1>
+                        <p class="headline-impact-2">It shapes the whole week.</p>
+                        <p class="subline-impact">For many dialysis patients, every part of life is affected.</p>
+                        <div class="divider-impact"></div>
+                    </div>
+
+                    <!-- 4 Icon tiles -->
+                    <div class="icon-grid">
+                        <div class="icon-card">
+                            <svg width="40" height="40" viewBox="0 0 28 28" fill="none">
+                                <rect x="3" y="9" width="22" height="15" rx="3" stroke="#1A82D8" stroke-width="2"/>
+                                <path d="M10 9V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#1A82D8" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="3" y1="16" x2="25" y2="16" stroke="#1A82D8" stroke-width="1.6"/>
+                            </svg>
+                            <span class="icon-card-label">Work</span>
+                        </div>
+                        <div class="icon-card">
+                            <svg width="40" height="40" viewBox="0 0 28 28" fill="none">
+                                <path d="M4 14L14 5l10 9" stroke="#7B35C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 12v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V12" stroke="#7B35C8" stroke-width="2" stroke-linecap="round"/>
+                                <rect x="11" y="17" width="6" height="6" rx="1" stroke="#7B35C8" stroke-width="2"/>
+                            </svg>
+                            <span class="icon-card-label">Family</span>
+                        </div>
+                        <div class="icon-card">
+                            <svg width="40" height="40" viewBox="0 0 28 28" fill="none">
+                                <rect x="6" y="8" width="16" height="14" rx="2" stroke="#1CC4C2" stroke-width="2"/>
+                                <path d="M10 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="#1CC4C2" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="14" y1="8" x2="14" y2="22" stroke="#1CC4C2" stroke-width="1.6"/>
+                                <circle cx="9" cy="24" r="1.5" stroke="#1CC4C2" stroke-width="1.6"/>
+                                <circle cx="19" cy="24" r="1.5" stroke="#1CC4C2" stroke-width="1.6"/>
+                            </svg>
+                            <span class="icon-card-label">Travel</span>
+                        </div>
+                        <!-- Rest: crescent moon -->
+                        <div class="icon-card">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="#C8552E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="icon-card-label">Rest</span>
+                        </div>
+                    </div>
+
+                    <!-- ECG line -->
+                    <div>
+                        <svg width="100%" height="44" viewBox="0 0 424 44" fill="none">
+                            <defs>
+                                <linearGradient id="ecg-imp-g" x1="0" y1="0" x2="424" y2="0" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%"   stop-color="#1CC4C2" stop-opacity="0.3"/>
+                                    <stop offset="22%"  stop-color="#1A82D8" stop-opacity="0.85"/>
+                                    <stop offset="50%"  stop-color="#7B35C8"/>
+                                    <stop offset="74%"  stop-color="#C82E35" stop-opacity="0.85"/>
+                                    <stop offset="100%" stop-color="#F27030" stop-opacity="0.3"/>
+                                </linearGradient>
+                            </defs>
+                            <path class="ecg-impact-path"
+                                d="M0,22 L90,22 L101,19 L112,25 L120,5 L130,40 L140,22 L165,22 L178,14 L191,22 L255,22 L267,19 L277,26 L285,9 L293,38 L302,22 L325,22 L335,18 L345,22 L424,22"
+                                stroke="url(#ecg-imp-g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="bottom-row">
+                        <div></div>
+                        <div class="logo-row">
+                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png" style="width:32px;height:32px;object-fit:contain;" alt="Degup">
+                            <span class="logo-name-light">DEGUP</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ PROBLEM CARD ══ -->
+    <div class="poster-wrap">
+        <p class="col-label">The Problem — Instagram 1:1</p>
+        <div class="poster-light-wrapper">
+            <div class="poster poster-problem">
+                <div class="glow-tr"></div>
+                <div class="glow-bl"></div>
+                <div class="inner-problem">
+
+                    <!-- Shared checkbox gradient -->
+                    <svg width="0" height="0" style="position:absolute">
+                        <defs>
+                            <linearGradient id="chk-g" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#1CC4C2"/>
+                                <stop offset="100%" stop-color="#1A82D8"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    <!-- Header -->
+                    <div>
+                        <p class="problem-label">The Problem</p>
+                        <h2 class="headline-problem">Finding the right slot<br><span>still feels too hard.</span></h2>
+                    </div>
+
+                    <!-- 3 compact chat bubbles -->
+                    <div class="chat-thread">
+                        <div class="chat-r">
+                            <div class="bub bub-r">Any dialysis slots available this week?</div>
+                        </div>
+                        <div class="chat-l">
+                            <div class="bub bub-l sk1">Sorry, we're fully booked.</div>
+                        </div>
+                        <div class="chat-r">
+                            <div class="bub bub-r sk2">I've already called 4 centres...</div>
+                        </div>
+                    </div>
+
+                    <!-- 2×2 Checklist -->
+                    <div class="checklist-grid">
+                        <div class="check-card">
+                            <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+                                <rect x="2" y="2" width="22" height="22" rx="5" stroke="url(#chk-g)" stroke-width="2"/>
+                                <path d="M7 13 L11 17 L19 9" stroke="url(#chk-g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="check-text">Call multiple centres</span>
+                        </div>
+                        <div class="check-card">
+                            <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+                                <rect x="2" y="2" width="22" height="22" rx="5" stroke="url(#chk-g)" stroke-width="2"/>
+                                <path d="M7 13 L11 17 L19 9" stroke="url(#chk-g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="check-text">Check availability manually</span>
+                        </div>
+                        <div class="check-card">
+                            <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+                                <rect x="2" y="2" width="22" height="22" rx="5" stroke="url(#chk-g)" stroke-width="2"/>
+                                <path d="M7 13 L11 17 L19 9" stroke="url(#chk-g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="check-text">Adjust work & family plans</span>
+                        </div>
+                        <div class="check-card">
+                            <svg width="22" height="22" viewBox="0 0 26 26" fill="none">
+                                <rect x="2" y="2" width="22" height="22" rx="5" stroke="url(#chk-g)" stroke-width="2"/>
+                                <path d="M7 13 L11 17 L19 9" stroke="url(#chk-g)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="check-text">Settle for inconvenient times</span>
+                        </div>
+                    </div>
+
+                    <!-- Friction line + Logo -->
+                    <div class="bottom-row" style="align-items:center;">
+                        <p class="friction-line">This is the friction <span>Degup wants to reduce.</span></p>
+                        <div class="logo-row">
+                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png" style="width:28px;height:28px;object-fit:contain;" alt="Degup">
+                            <span class="logo-name-light" style="font-size:12px;">DEGUP</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ══ SOLUTION CARD ══ -->
+    <div class="poster-wrap">
+        <p class="col-label">What Degup Does — Instagram 1:1</p>
+        <div class="poster-light-wrapper">
+            <div class="poster poster-solution">
+                <div class="glow-tr"></div>
+                <div class="glow-bl"></div>
+                <div class="inner-solution">
+
+                    <!-- Header -->
+                    <div>
+                        <h2 class="headline-solution"><span>Degup</span> helps patients find dialysis options that better fit their life.</h2>
+                        <div class="divider-solution"></div>
+                    </div>
+
+                    <!-- 3 icon tiles -->
+                    <div class="sol-tile-grid">
+                        <div class="sol-tile">
+                            <div class="sol-tile-icon" style="background:rgba(28,196,194,.12)">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                    <rect x="3" y="4" width="18" height="17" rx="3" stroke="#1CC4C2" stroke-width="2"/>
+                                    <path d="M3 9h18" stroke="#1CC4C2" stroke-width="2"/>
+                                    <path d="M8 2v4M16 2v4" stroke="#1CC4C2" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M8 14l2.5 2.5 5-5" stroke="#1CC4C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <p class="sol-tile-label">Less uncertainty</p>
+                            <p class="sol-tile-desc">Slots available upfront</p>
+                        </div>
+                        <div class="sol-tile">
+                            <div class="sol-tile-icon" style="background:rgba(26,130,216,.12)">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="8" cy="7" r="3" stroke="#1A82D8" stroke-width="2"/>
+                                    <circle cx="16" cy="7" r="3" stroke="#1A82D8" stroke-width="2"/>
+                                    <path d="M2 19c0-3 2.7-5 6-5h8c3.3 0 6 2 6 5" stroke="#1A82D8" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <p class="sol-tile-label">Easier coordination</p>
+                            <p class="sol-tile-desc">One platform, many centres</p>
+                        </div>
+                        <div class="sol-tile">
+                            <div class="sol-tile-icon" style="background:rgba(123,53,200,.12)">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="9" stroke="#7B35C8" stroke-width="2"/>
+                                    <path d="M12 7v5l3 3" stroke="#7B35C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <p class="sol-tile-label">More flexibility</p>
+                            <p class="sol-tile-desc">For work, family, and travel</p>
+                        </div>
+                    </div>
+
+                    <!-- ECG line -->
+                    <div>
+                        <svg width="100%" height="52" viewBox="0 0 424 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="ecg-sol-g" x1="0" y1="0" x2="424" y2="0" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%"   stop-color="#1CC4C2"/>
+                                    <stop offset="30%"  stop-color="#1A82D8"/>
+                                    <stop offset="60%"  stop-color="#7B35C8"/>
+                                    <stop offset="80%"  stop-color="#C82E35"/>
+                                    <stop offset="100%" stop-color="#F27030"/>
+                                </linearGradient>
+                            </defs>
+                            <path class="ecg-sol-path"
+                                d="M0,26 L95,26 L106,23 L117,29 L127,7 L137,46 L147,26 L170,26 L183,17 L196,26 L260,26 L272,22 L282,30 L290,12 L298,42 L307,26 L330,26 L340,21 L350,26 L424,26"
+                                stroke="url(#ecg-sol-g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="bottom-row">
+                        <div></div>
+                        <div class="logo-row">
+                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                                 style="width:34px;height:34px;object-fit:contain;" alt="Degup">
+                            <span class="logo-name-light">DEGUP</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ CTA / CLOSING CARD ══ -->
+    <div class="poster-wrap">
+        <p class="col-label">Closing / CTA — Instagram 1:1</p>
+        <div class="poster poster-cta">
+            <div class="glow-tr"></div>
+            <div class="glow-bl"></div>
+
+            <div class="inner-cta">
+
+                <!-- Headline -->
+                <h2 class="headline-cta">We're starting<br><span>by listening.</span></h2>
+
+                <!-- To... list -->
+                <div class="listen-list">
+                    <div class="listen-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="8" r="4" stroke="#1CC4C2" stroke-width="2"/>
+                            <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="#1CC4C2" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>To patients.</span>
+                    </div>
+                    <div class="listen-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="8" cy="8" r="3" stroke="#1A82D8" stroke-width="2"/>
+                            <circle cx="16" cy="8" r="3" stroke="#1A82D8" stroke-width="2"/>
+                            <path d="M2 20c0-3 2.7-5 6-5h8c3.3 0 6 2 6 5" stroke="#1A82D8" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>To caregivers.</span>
+                    </div>
+                    <div class="listen-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="6" width="18" height="15" rx="2" stroke="#7B35C8" stroke-width="2"/>
+                            <path d="M3 11h18" stroke="#7B35C8" stroke-width="2"/>
+                            <path d="M9 3l3 3 3-3" stroke="#7B35C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 14v4M10 16h4" stroke="#7B35C8" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>To dialysis centres.</span>
+                    </div>
+                    <div class="listen-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="#c065d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>To healthcare partners.</span>
+                    </div>
+                </div>
+
+                <!-- CTA box -->
+                <div class="cta-box">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="flex-shrink:0">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="url(#cta-icon-g)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="cta-icon-g" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#7cc8ff"/>
+                                <stop offset="100%" stop-color="#a78bfa"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <p>Follow Degup as we build towards more flexible dialysis access.</p>
+                </div>
+
+                <!-- Footer -->
+                <div class="bottom-row">
+                    <p class="tagline-cta">Connecting with Care.</p>
+                    <div class="logo-row">
+                        <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                             style="width:34px;height:34px;object-fit:contain;" alt="Degup">
+                        <span class="logo-name-dark">DEGUP</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    </div><!-- /cards-row batch01 -->
+</section><!-- /batch01 -->
+
+<!-- ════════════════════════════════════════════════════════
+     BATCH 02 — Second Posting (4 posts)
+═════════════════════════════════════════════════════════════ -->
+<section class="batch-section">
+    <div class="batch-header-row">
+        <div>
+            <p class="batch-eyebrow">Batch 02 · Second Posting</p>
+            <h2 class="batch-heading">Second <span>Posting</span></h2>
+            <p class="batch-desc">Life Fit · Life Impact Stats · The Struggle · How Degup Helps</p>
+        </div>
+        <span class="batch-count-tag">4 Posts</span>
+    </div>
+    <div class="cards-row">
+
+    <!-- ══ STATS POST ══ -->
+    <div class="poster-wrap b2-st">
+        <p class="col-label">Life Impact Stats — Instagram 1:1</p>
+        <div class="poster-light-wrapper">
+            <div class="poster poster-stats">
+                <div class="glow-tr"></div>
+                <div class="glow-bl"></div>
+                <div class="inner-stats">
+
+                    <!-- Header -->
+                    <div>
+                        <div class="stats-badge"><span class="stats-pulse"></span> Week after week</div>
+                        <h2 class="headline-stats">Dialysis affects more<br><span>than treatment time.</span></h2>
+                        <div class="divider-stats"></div>
+                    </div>
+
+                    <!-- 2×2 stat card grid -->
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-num">3× a week</div>
+                            <p class="stat-card-desc">Regular treatment schedule</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-num">4–5 hours</div>
+                            <p class="stat-card-desc">A big part of each session</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-num">Work</div>
+                            <p class="stat-card-desc">Hours, shifts & income</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-num">Family</div>
+                            <p class="stat-card-desc">Care, transport & home life</p>
+                        </div>
+                    </div>
+
+                    <!-- Emotional closing -->
+                    <p class="emotional-close">Patients need options that <span>fit real life</span> —<br>not just whatever slot is available.</p>
+
+                    <!-- ECG + logo -->
+                    <div>
+                        <svg width="100%" height="44" viewBox="0 0 424 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="ecg-st-g" x1="0" y1="0" x2="424" y2="0" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%"   stop-color="#1CC4C2"/>
+                                    <stop offset="30%"  stop-color="#1A82D8"/>
+                                    <stop offset="60%"  stop-color="#7B35C8"/>
+                                    <stop offset="80%"  stop-color="#C82E35"/>
+                                    <stop offset="100%" stop-color="#F27030"/>
+                                </linearGradient>
+                            </defs>
+                            <path class="ecg-stats-path"
+                                d="M0,22 L90,22 L101,19 L112,25 L120,5 L130,40 L140,22 L165,22 L178,14 L191,22 L255,22 L267,19 L277,26 L285,9 L293,38 L302,22 L325,22 L335,18 L345,22 L424,22"
+                                stroke="url(#ecg-st-g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                        <div class="bottom-row" style="margin-top:12px;">
+                            <div></div>
+                            <div class="logo-row">
+                                <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                                     style="width:34px;height:34px;object-fit:contain;" alt="Degup">
+                                <span class="logo-name-light">DEGUP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ LIFE FIT POST ══ -->
+    <div class="poster-wrap b2-lf">
+        <p class="col-label">Life Fit Post — Instagram 1:1</p>
+        <div class="poster-light-wrapper">
+            <div class="poster poster-lifefit">
+                <div class="glow-tr"></div>
+                <div class="glow-bl"></div>
+                <div class="inner-lifefit">
+
+                    <!-- Hero: gradient ring with "life." inside -->
+                    <div class="lf-hero-area">
+                        <svg width="292" height="292" viewBox="0 0 292 292" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="lf-ring-g" x1="0" y1="0" x2="292" y2="292" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%"  stop-color="#1a7fd4"/>
+                                    <stop offset="100%" stop-color="#7c4dda"/>
+                                </linearGradient>
+                                <linearGradient id="lf-txt-g" x1="60" y1="110" x2="232" y2="182" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%"  stop-color="#1a7fd4"/>
+                                    <stop offset="100%" stop-color="#7c4dda"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Outer ring -->
+                            <circle cx="146" cy="146" r="132" stroke="url(#lf-ring-g)" stroke-width="2" opacity="0.28"/>
+                            <!-- Inner dashed ring -->
+                            <circle cx="146" cy="146" r="118" stroke="url(#lf-ring-g)" stroke-width="1" stroke-dasharray="4 10" opacity="0.16"/>
+                            <!-- Cardinal dots -->
+                            <circle cx="146" cy="14"  r="4" fill="url(#lf-ring-g)" opacity="0.5"/>
+                            <circle cx="278" cy="146" r="4" fill="url(#lf-ring-g)" opacity="0.5"/>
+                            <circle cx="146" cy="278" r="4" fill="url(#lf-ring-g)" opacity="0.5"/>
+                            <circle cx="14"  cy="146" r="4" fill="url(#lf-ring-g)" opacity="0.5"/>
+                            <!-- Word inside ring -->
+                            <text x="146" y="162"
+                                text-anchor="middle" dominant-baseline="middle"
+                                font-family="Manrope, sans-serif"
+                                font-size="72" font-weight="900" letter-spacing="-3"
+                                fill="url(#lf-txt-g)">life.</text>
+                        </svg>
+                    </div>
+
+                    <!-- Gradient rule -->
+                    <div class="lf-rule"></div>
+
+                    <!-- Content strip -->
+                    <div class="lf-content">
+                        <h2 class="headline-lifefit">Dialysis should<br><span>fit your life better.</span></h2>
+                        <p class="subline-lifefit">Work, family, rest and travel can all<br>be affected by dialysis timing.</p>
+                        <p class="lf-statement">Degup is exploring ways to help patients<br>find dialysis options that fit real life better.</p>
+                        <div class="lf-footer">
+                            <span class="lf-url">degup.my</span>
+                            <div class="logo-row">
+                                <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                                     style="width:28px;height:28px;object-fit:contain;" alt="Degup">
+                                <span class="logo-name-light">DEGUP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ HOW DEGUP HELPS ══ -->
+    <div class="poster-wrap b2-hw">
+        <p class="col-label">How Degup Helps — Instagram 1:1</p>
+        <div class="poster-light-wrapper">
+            <div class="poster poster-howdegup">
+                <div class="glow-tr"></div>
+                <div class="glow-bl"></div>
+                <div class="inner-howdegup">
+
+                    <!-- Header -->
+                    <div>
+                        <div class="stats-badge"><span class="stats-pulse"></span> How It Works</div>
+                        <h2 class="headline-howdegup">How Degup is<br><span>trying to help.</span></h2>
+                        <p class="subline-howdegup">Degup is working on a simpler way for patients to explore dialysis options.</p>
+                        <div class="divider-howdegup"></div>
+                    </div>
+
+                    <!-- 3-step flow card -->
+                    <div class="step-flow-card">
+                        <div class="step-flow-item">
+                            <div class="step-flow-num sfn-1">01</div>
+                            <div class="step-flow-content">
+                                <span class="step-flow-title">Share what you need</span>
+                                <span class="step-flow-desc">Preferred timing, location, and treatment details</span>
+                            </div>
+                        </div>
+                        <div class="step-flow-item">
+                            <div class="step-flow-num sfn-2">02</div>
+                            <div class="step-flow-content">
+                                <span class="step-flow-title">See possible options</span>
+                                <span class="step-flow-desc">Centres and slots that may be suitable</span>
+                            </div>
+                        </div>
+                        <div class="step-flow-item">
+                            <div class="step-flow-num sfn-3">03</div>
+                            <div class="step-flow-content">
+                                <span class="step-flow-title">Reduce the back-and-forth</span>
+                                <span class="step-flow-desc">Less calling around, less uncertainty</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ECG + logo -->
+                    <div>
+                        <svg width="100%" height="44" viewBox="0 0 424 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="ecg-hw-g" x1="0" y1="0" x2="424" y2="0" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%"   stop-color="#1CC4C2" stop-opacity="0.3"/>
+                                    <stop offset="22%"  stop-color="#1A82D8" stop-opacity="0.85"/>
+                                    <stop offset="50%"  stop-color="#7B35C8"/>
+                                    <stop offset="74%"  stop-color="#a78bfa" stop-opacity="0.85"/>
+                                    <stop offset="100%" stop-color="#c4b5fd" stop-opacity="0.3"/>
+                                </linearGradient>
+                            </defs>
+                            <path class="ecg-how-path"
+                                d="M0,22 L90,22 L101,19 L112,25 L120,5 L130,40 L140,22 L165,22 L178,14 L191,22 L255,22 L267,19 L277,26 L285,9 L293,38 L302,22 L325,22 L335,18 L345,22 L424,22"
+                                stroke="url(#ecg-hw-g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        </svg>
+                        <div class="bottom-row" style="margin-top:12px;">
+                            <div></div>
+                            <div class="logo-row">
+                                <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                                     style="width:34px;height:34px;object-fit:contain;" alt="Degup">
+                                <span class="logo-name-light">DEGUP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ SLOT STRESS POST ══ -->
+    <div class="poster-wrap b2-sl">
+        <p class="col-label">The Struggle — Instagram 1:1</p>
+        <div class="poster-light-wrapper">
+            <div class="poster poster-slots">
+                <div class="glow-tr"></div>
+                <div class="glow-bl"></div>
+                <div class="inner-slots">
+
+                    <!-- Header -->
+                    <div>
+                        <p class="problem-label">The Reality</p>
+                        <h2 class="headline-slots">Finding the right slot<br><span>can be tiring.</span></h2>
+                    </div>
+
+                    <!-- Chat thread -->
+                    <div class="chat-thread">
+                        <div class="chat-r">
+                            <div class="bub bub-r">Any morning slots this week?</div>
+                        </div>
+                        <div class="chat-l">
+                            <div class="bub bub-l sk1">Nothing before noon, sorry.</div>
+                        </div>
+                        <div class="chat-r">
+                            <div class="bub bub-r sk2">That means I'll miss work again...</div>
+                        </div>
+                    </div>
+
+                    <!-- 2×2 burden grid -->
+                    <div class="burden-grid">
+                        <div class="burden-card">
+                            <div class="burden-icon" style="background:rgba(28,196,194,.12)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 3 3.34a2 2 0 0 1 1.99-1.15h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 16h-1z" stroke="#1CC4C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="burden-text">Call multiple centres</span>
+                        </div>
+                        <div class="burden-card">
+                            <div class="burden-icon" style="background:rgba(26,130,216,.12)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="#1A82D8" stroke-width="2"/>
+                                    <path d="M12 6v6l4 2" stroke="#1A82D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="burden-text">Check each time slot</span>
+                        </div>
+                        <div class="burden-card">
+                            <div class="burden-icon" style="background:rgba(123,53,200,.12)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <rect x="3" y="4" width="18" height="17" rx="3" stroke="#7B35C8" stroke-width="2"/>
+                                    <path d="M3 9h18" stroke="#7B35C8" stroke-width="2"/>
+                                    <path d="M8 2v4M16 2v4" stroke="#7B35C8" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M7 14h5M7 17h3" stroke="#7B35C8" stroke-width="1.8" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <span class="burden-text">Rearrange daily plans</span>
+                        </div>
+                        <div class="burden-card">
+                            <div class="burden-icon" style="background:rgba(229,114,52,.11)">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="#E57234" stroke-width="2"/>
+                                    <line x1="12" y1="8" x2="12" y2="12.5" stroke="#E57234" stroke-width="2.2" stroke-linecap="round"/>
+                                    <circle cx="12" cy="16" r="1" fill="#E57234"/>
+                                </svg>
+                            </div>
+                            <span class="burden-text">Accept a hard timing</span>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="bottom-row" style="align-items:center;">
+                        <p class="friction-line">This is the stress <span>Degup</span> wants to make easier.</p>
+                        <div class="logo-row">
+                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                                 style="width:28px;height:28px;object-fit:contain;" alt="Degup">
+                            <span class="logo-name-light" style="font-size:12px;">DEGUP</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div><!-- /cards-row batch02 -->
+</section><!-- /batch02 -->
+
+
+</body>
+</html>
