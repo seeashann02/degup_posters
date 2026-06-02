@@ -1,1 +1,0 @@
-# degup_posters
