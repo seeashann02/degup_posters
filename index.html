@@ -592,75 +592,34 @@
         filter: drop-shadow(0 0 4px rgba(100,140,255,.5));
     }
 
-    /* ══════ LIFE FIT POST ══════ */
-    /* ══════ LIFE FIT POST — Minimalist ring redesign ══════ */
+    /* ══════ LIFE FIT POST — mirrors Introduction Post ══════ */
     .poster-lifefit {
-        background: linear-gradient(145deg, #f6f7ff 0%, #ede8ff 65%, #e6e0ff 100%);
+        background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
         border-radius: 24px; overflow: hidden;
         width: 520px; height: 520px;
     }
     .poster-lifefit .glow-tr {
-        position: absolute; top: -60px; right: -60px;
-        width: 300px; height: 300px; border-radius: 50%;
-        background: radial-gradient(circle, rgba(123,53,200,.15) 0%, transparent 68%);
+        position: absolute; top: -80px; right: -80px;
+        width: 280px; height: 280px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(190,170,255,.3) 0%, transparent 70%);
         pointer-events: none;
     }
     .poster-lifefit .glow-bl {
         position: absolute; bottom: -50px; left: -50px;
-        width: 240px; height: 240px; border-radius: 50%;
-        background: radial-gradient(circle, rgba(28,196,194,.13) 0%, transparent 68%);
+        width: 220px; height: 220px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(100,200,255,.2) 0%, transparent 70%);
         pointer-events: none;
     }
     .poster-lifefit .inner-lifefit {
         position: relative; z-index: 2;
-        height: 100%; display: flex; flex-direction: column;
+        padding: 52px 52px 48px; height: 100%;
+        display: flex; flex-direction: column; justify-content: center;
     }
-    /* hero circle area — fills all space above the content strip */
-    .lf-hero-area {
-        flex: 1; display: flex; align-items: center; justify-content: center;
-    }
-    /* thin gradient rule separating hero from content */
-    .lf-rule {
-        height: 1px; margin: 0 44px;
-        background: linear-gradient(90deg, rgba(28,196,194,.4), rgba(123,53,200,.25), transparent);
-        flex-shrink: 0;
-    }
-    /* bottom content strip */
-    .lf-content {
-        padding: 20px 44px 34px; flex-shrink: 0;
-    }
-    .lf-content {
-        padding: 22px 44px 34px; flex-shrink: 0;
-    }
-    .headline-lifefit {
-        font-family: 'Manrope', sans-serif;
-        font-size: 22px; font-weight: 900; line-height: 1.2;
-        letter-spacing: -0.025em; color: #10132a;
-    }
-    .headline-lifefit span {
-        background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .subline-lifefit {
-        font-family: 'Manrope', sans-serif;
-        font-size: 13px; font-weight: 600; color: rgba(16,19,42,.4);
-        line-height: 1.55; margin-top: 10px;
-    }
-    .lf-statement {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 12.5px; font-weight: 500; color: rgba(16,19,42,.52);
-        line-height: 1.55; margin-top: 14px;
-        padding-top: 14px;
-        border-top: 1px solid rgba(16,19,42,.07);
-    }
-    .lf-footer {
-        display: flex; align-items: center; justify-content: space-between;
-        margin-top: 16px;
-    }
-    .lf-url {
-        font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700;
-        letter-spacing: .06em; color: rgba(16,19,42,.18);
-    }
+    .poster-lifefit .inner-lifefit .content-top    { flex: 0; }
+    .poster-lifefit .inner-lifefit .ecg-light-wrap { flex: 0; padding: 0; margin-top: 36px; }
+    .poster-lifefit .inner-lifefit .bottom-row     { flex: 0; margin-top: 20px; }
+    /* Scale headline to fit the longer Life Fit copy */
+    .poster-lifefit .headline-light { font-size: 56px; }
 
     /* ══════ CTA CARD ══════ */
     .poster-cta {
@@ -914,7 +873,7 @@
 
 <header class="site-header">
     <div class="site-header-brand">
-        <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png" class="site-header-logo" alt="Degup">
+        <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true" class="site-header-logo" alt="Degup">
         <div>
             <span class="site-header-name">DEGUP</span>
             <span class="site-header-sub">Social Media Poster Preview · Internal Use</span>
@@ -994,7 +953,7 @@
                     <!-- Footer — bottom flex item -->
                     <div class="bottom-row">
                         <div class="logo-row">
-                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png" style="width:34px;height:34px;object-fit:contain;" alt="Degup">
+                            <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true" style="width:34px;height:34px;object-fit:contain;" alt="Degup">
                             <span class="logo-name-light">DEGUP</span>
                         </div>
                         <span class="url-light">degup.my</span>
@@ -1080,7 +1039,7 @@
                     <div class="bottom-row">
                         <div></div>
                         <div class="logo-row">
-                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png" style="width:32px;height:32px;object-fit:contain;" alt="Degup">
+                            <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true" style="width:32px;height:32px;object-fit:contain;" alt="Degup">
                             <span class="logo-name-light">DEGUP</span>
                         </div>
                     </div>
@@ -1164,7 +1123,7 @@
                     <div class="bottom-row" style="align-items:center;">
                         <p class="friction-line">This is the friction <span>Degup wants to reduce.</span></p>
                         <div class="logo-row">
-                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png" style="width:28px;height:28px;object-fit:contain;" alt="Degup">
+                            <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true" style="width:28px;height:28px;object-fit:contain;" alt="Degup">
                             <span class="logo-name-light" style="font-size:12px;">DEGUP</span>
                         </div>
                     </div>
@@ -1249,7 +1208,7 @@
                     <div class="bottom-row">
                         <div></div>
                         <div class="logo-row">
-                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                            <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true"
                                  style="width:34px;height:34px;object-fit:contain;" alt="Degup">
                             <span class="logo-name-light">DEGUP</span>
                         </div>
@@ -1324,7 +1283,7 @@
                 <div class="bottom-row">
                     <p class="tagline-cta">Connecting with Care.</p>
                     <div class="logo-row">
-                        <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                        <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true"
                              style="width:34px;height:34px;object-fit:contain;" alt="Degup">
                         <span class="logo-name-dark">DEGUP</span>
                     </div>
@@ -1409,7 +1368,7 @@
                         <div class="bottom-row" style="margin-top:12px;">
                             <div></div>
                             <div class="logo-row">
-                                <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                                <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true"
                                      style="width:34px;height:34px;object-fit:contain;" alt="Degup">
                                 <span class="logo-name-light">DEGUP</span>
                             </div>
@@ -1429,56 +1388,36 @@
                 <div class="glow-tr"></div>
                 <div class="glow-bl"></div>
                 <div class="inner-lifefit">
+                    <div class="content-top">
+                        <h1 class="headline-light">Dialysis should<br><span class="grad-light">fit your life<br>better.</span></h1>
+                        <p class="subline-light">Work, family, rest and travel can all<br>be affected by dialysis timing.</p>
+                    </div>
 
-                    <!-- Hero: gradient ring with "life." inside -->
-                    <div class="lf-hero-area">
-                        <svg width="292" height="292" viewBox="0 0 292 292" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div class="ecg-light-wrap">
+                        <svg width="100%" height="52" viewBox="0 0 424 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <defs>
-                                <linearGradient id="lf-ring-g" x1="0" y1="0" x2="292" y2="292" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%"  stop-color="#1a7fd4"/>
-                                    <stop offset="100%" stop-color="#7c4dda"/>
-                                </linearGradient>
-                                <linearGradient id="lf-txt-g" x1="60" y1="110" x2="232" y2="182" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%"  stop-color="#1a7fd4"/>
-                                    <stop offset="100%" stop-color="#7c4dda"/>
+                                <linearGradient id="ecg-lf-g" x1="0" y1="0" x2="424" y2="0" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%"   stop-color="#1CC4C2" stop-opacity="0.3"/>
+                                    <stop offset="22%"  stop-color="#1A82D8" stop-opacity="0.85"/>
+                                    <stop offset="50%"  stop-color="#7B35C8"/>
+                                    <stop offset="74%"  stop-color="#C82E35" stop-opacity="0.85"/>
+                                    <stop offset="100%" stop-color="#F27030" stop-opacity="0.3"/>
                                 </linearGradient>
                             </defs>
-                            <!-- Outer ring -->
-                            <circle cx="146" cy="146" r="132" stroke="url(#lf-ring-g)" stroke-width="2" opacity="0.28"/>
-                            <!-- Inner dashed ring -->
-                            <circle cx="146" cy="146" r="118" stroke="url(#lf-ring-g)" stroke-width="1" stroke-dasharray="4 10" opacity="0.16"/>
-                            <!-- Cardinal dots -->
-                            <circle cx="146" cy="14"  r="4" fill="url(#lf-ring-g)" opacity="0.5"/>
-                            <circle cx="278" cy="146" r="4" fill="url(#lf-ring-g)" opacity="0.5"/>
-                            <circle cx="146" cy="278" r="4" fill="url(#lf-ring-g)" opacity="0.5"/>
-                            <circle cx="14"  cy="146" r="4" fill="url(#lf-ring-g)" opacity="0.5"/>
-                            <!-- Word inside ring -->
-                            <text x="146" y="162"
-                                text-anchor="middle" dominant-baseline="middle"
-                                font-family="Manrope, sans-serif"
-                                font-size="72" font-weight="900" letter-spacing="-3"
-                                fill="url(#lf-txt-g)">life.</text>
+                            <path class="ecg-light-path"
+                                d="M0,26 L95,26 L106,23 L117,29 L127,7 L137,46 L147,26 L170,26 L183,17 L196,26 L260,26 L272,22 L282,30 L290,12 L298,42 L307,26 L330,26 L340,21 L350,26 L424,26"
+                                stroke="url(#ecg-lf-g)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
 
-                    <!-- Gradient rule -->
-                    <div class="lf-rule"></div>
-
-                    <!-- Content strip -->
-                    <div class="lf-content">
-                        <h2 class="headline-lifefit">Dialysis should<br><span>fit your life better.</span></h2>
-                        <p class="subline-lifefit">Work, family, rest and travel can all<br>be affected by dialysis timing.</p>
-                        <p class="lf-statement">Degup is exploring ways to help patients<br>find dialysis options that fit real life better.</p>
-                        <div class="lf-footer">
-                            <span class="lf-url">degup.my</span>
-                            <div class="logo-row">
-                                <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
-                                     style="width:28px;height:28px;object-fit:contain;" alt="Degup">
-                                <span class="logo-name-light">DEGUP</span>
-                            </div>
+                    <div class="bottom-row">
+                        <div class="logo-row">
+                            <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true"
+                                 style="width:34px;height:34px;object-fit:contain;" alt="Degup">
+                            <span class="logo-name-light">DEGUP</span>
                         </div>
+                        <span class="url-light">degup.my</span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -1545,7 +1484,7 @@
                         <div class="bottom-row" style="margin-top:12px;">
                             <div></div>
                             <div class="logo-row">
-                                <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                                <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true"
                                      style="width:34px;height:34px;object-fit:contain;" alt="Degup">
                                 <span class="logo-name-light">DEGUP</span>
                             </div>
@@ -1631,7 +1570,7 @@
                     <div class="bottom-row" style="align-items:center;">
                         <p class="friction-line">This is the stress <span>Degup</span> wants to make easier.</p>
                         <div class="logo-row">
-                            <img src="Documents/Degup/Pics%20of%20Degup/logo-transparent-without%20name.png"
+                            <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true"
                                  style="width:28px;height:28px;object-fit:contain;" alt="Degup">
                             <span class="logo-name-light" style="font-size:12px;">DEGUP</span>
                         </div>
