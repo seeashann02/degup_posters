@@ -534,8 +534,8 @@
     }
     .headline-stats {
         font-family: 'Manrope', sans-serif;
-        font-size: 30px; font-weight: 900; line-height: 1.06;
-        letter-spacing: -0.03em; color: #10132a; margin-top: 8px;
+        font-size: 22px; font-weight: 900; line-height: 1.1;
+        letter-spacing: -0.03em; color: #10132a; margin-top: 6px;
     }
     .headline-stats span {
         background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
@@ -562,15 +562,30 @@
     }
     .stat-card-num {
         font-family: 'Manrope', sans-serif;
-        font-size: 21px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1;
+        font-size: 17px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1;
         background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .stat-card-desc {
         font-family: 'DM Sans', sans-serif;
         font-size: 10.5px; font-weight: 500; color: rgba(16,19,42,.42);
-        line-height: 1.4; margin-top: 6px; white-space: nowrap;
+        line-height: 1.4; margin-top: 5px;
     }
+    /* Per-category colours + left accent strip */
+    .stat-card:nth-child(1) { border-left: 3px solid #1CC4C2; background: rgba(28,196,194,.06); }
+    .stat-card:nth-child(2) { border-left: 3px solid #C82E35; background: rgba(200,46,53,.05); }
+    .stat-card:nth-child(3) { border-left: 3px solid #1A82D8; background: rgba(26,130,216,.05); }
+    .stat-card:nth-child(4) { border-left: 3px solid #7c4dda; background: rgba(124,77,218,.05); }
+    .stat-card:nth-child(1) .stat-card-num { background: linear-gradient(115deg, #1CC4C2, #1a7fd4); -webkit-background-clip: text; background-clip: text; }
+    .stat-card:nth-child(2) .stat-card-num { background: linear-gradient(115deg, #C82E35, #F27030); -webkit-background-clip: text; background-clip: text; }
+    .stat-card:nth-child(3) .stat-card-num { background: linear-gradient(115deg, #1A82D8, #3b82f6); -webkit-background-clip: text; background-clip: text; }
+    .stat-card:nth-child(4) .stat-card-num { background: linear-gradient(115deg, #7c4dda, #a78bfa); -webkit-background-clip: text; background-clip: text; }
+    .stats-body {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 11px; font-weight: 500; color: rgba(16,19,42,.5);
+        line-height: 1.5; margin-top: 7px;
+    }
+    .stats-body strong { color: rgba(16,19,42,.75); font-weight: 700; }
     .emotional-close {
         font-family: 'Manrope', sans-serif;
         font-size: 13px; font-weight: 700; letter-spacing: -0.01em;
@@ -612,15 +627,38 @@
     }
     .poster-lifefit .inner-lifefit {
         position: relative; z-index: 2;
-        padding: 52px 52px 48px; height: 100%;
-        display: flex; flex-direction: column; justify-content: center;
+        padding: 52px 52px 48px; height: 100%; box-sizing: border-box;
+        display: flex; flex-direction: column; justify-content: center; gap: 28px;
     }
-    .poster-lifefit .inner-lifefit .content-top    { flex: 0; }
-    .poster-lifefit .inner-lifefit .ecg-light-wrap { flex: 0; padding: 0; margin-top: 24px; }
-    .poster-lifefit .inner-lifefit .bottom-row     { flex: 0; margin-top: 14px; }
-    /* Scale to fit the longer Malay copy */
-    .poster-lifefit .headline-light { font-size: 44px; }
-    .poster-lifefit .subline-light  { font-size: 12px; line-height: 1.6; margin-top: 12px; }
+    .poster-lifefit .inner-lifefit .content-top    { flex: none; }
+    .poster-lifefit .inner-lifefit .lf-body-card   { flex: none; }
+    .poster-lifefit .inner-lifefit .ecg-light-wrap { flex: none; padding: 0; }
+    .poster-lifefit .inner-lifefit .bottom-row     { flex: none; }
+    /* Label badge */
+    .lf-label {
+        display: inline-flex; align-items: center; gap: 7px;
+        font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 800;
+        letter-spacing: .12em; text-transform: uppercase; color: rgba(16,19,42,.38);
+    }
+    .lf-label-dot {
+        width: 7px; height: 7px; border-radius: 50%; background: #1CC4C2; flex-shrink: 0;
+        animation: pulse-glow 2s ease-in-out infinite;
+    }
+    /* Headline */
+    .poster-lifefit .headline-light { font-size: 38px; }
+    /* Body context card — unique differentiator from Intro Post */
+    .lf-body-card {
+        position: relative; overflow: hidden;
+        background: linear-gradient(115deg, rgba(26,130,216,.05) 0%, rgba(124,77,218,.06) 100%);
+        border-radius: 16px; padding: 16px 18px 16px 20px;
+    }
+    .lf-body-bar {
+        position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+        background: linear-gradient(to bottom, #1CC4C2, #1a7fd4, #7c4dda);
+    }
+    .poster-lifefit .subline-light {
+        font-size: 14.5px; line-height: 1.65; margin: 0;
+    }
 
     /* ══════ CTA CARD ══════ */
     .poster-cta {
@@ -725,51 +763,33 @@
         width: 100%; height: 1px; margin-top: 14px;
         background: linear-gradient(90deg, rgba(124,200,255,.5), rgba(167,139,250,.25), transparent);
     }
-    /* Step flow card */
-    .step-flow-card {
-        background: rgba(255,255,255,.82);
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,.96);
-        box-shadow: 0 6px 28px rgba(100,140,255,.12), 0 1px 4px rgba(0,0,0,.04);
-        overflow: hidden;
+    /* Step cards — independent cards, distinct from The Struggle rows */
+    .steps-stack { display: flex; flex-direction: column; gap: 8px; }
+    .step-card {
+        position: relative; overflow: hidden;
+        border-radius: 14px; padding: 13px 76px 13px 16px;
     }
-    .step-flow-item {
-        display: flex; align-items: center; gap: 18px;
-        padding: 15px 18px;
-        border-bottom: 1px solid rgba(16,19,42,.05);
-        position: relative;
+    .step-card:nth-child(1) { background: rgba(28,196,194,.07); border: 1px solid rgba(28,196,194,.22); }
+    .step-card:nth-child(2) { background: rgba(26,130,216,.07); border: 1px solid rgba(26,130,216,.22); }
+    .step-card:nth-child(3) { background: rgba(124,77,218,.07); border: 1px solid rgba(124,77,218,.22); }
+    .step-card-wm {
+        position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+        font-family: 'Manrope', sans-serif; font-size: 64px; font-weight: 900;
+        letter-spacing: -0.06em; line-height: 1; pointer-events: none; user-select: none;
+        opacity: 0.1;
     }
-    .step-flow-item:last-child { border-bottom: none; }
-    .step-flow-item:nth-child(1) { background: rgba(28,196,194,.04); }
-    .step-flow-item:nth-child(2) { background: rgba(26,130,216,.04); }
-    .step-flow-item:nth-child(3) { background: rgba(123,53,200,.04); }
-    .step-flow-num {
-        font-family: 'Manrope', sans-serif;
-        font-size: 36px; font-weight: 900; line-height: 1;
-        letter-spacing: -0.05em; flex-shrink: 0;
+    .step-card:nth-child(1) .step-card-wm { color: #1CC4C2; }
+    .step-card:nth-child(2) .step-card-wm { color: #1A82D8; }
+    .step-card:nth-child(3) .step-card-wm { color: #7c4dda; }
+    .step-card-title {
+        display: block; font-family: 'Manrope', sans-serif;
+        font-size: 13px; font-weight: 800; color: #10132a;
+        letter-spacing: -0.01em; line-height: 1.25;
     }
-    .sfn-1 {
-        background: linear-gradient(135deg, #1CC4C2, #1A82D8);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .sfn-2 {
-        background: linear-gradient(135deg, #1A82D8, #7B35C8);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .sfn-3 {
-        background: linear-gradient(135deg, #7B35C8, #a78bfa);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .step-flow-content { display: flex; flex-direction: column; gap: 3px; }
-    .step-flow-title {
-        font-family: 'Manrope', sans-serif;
-        font-size: 13.5px; font-weight: 800; color: #10132a;
-        letter-spacing: -0.01em; line-height: 1.2;
-    }
-    .step-flow-desc {
-        font-family: 'DM Sans', sans-serif;
-        font-size: 11px; font-weight: 500; color: rgba(16,19,42,.44);
-        line-height: 1.4;
+    .step-card-desc {
+        display: block; font-family: 'DM Sans', sans-serif;
+        font-size: 10.5px; font-weight: 500; color: rgba(16,19,42,.44);
+        margin-top: 3px; line-height: 1.4;
     }
     .ecg-how-path {
         stroke-dasharray: 620;
@@ -814,10 +834,11 @@
     .b2-hw { order: 4; }
 
     /* ══════ SLOT STRESS POST ══════ */
+    /* ══════ THE STRUGGLE POST ══════ */
     .poster-slots {
         background: linear-gradient(160deg, #f8f9ff 0%, #eef0f8 100%);
         border-radius: 24px; overflow: hidden;
-        width: 520px; height: 520px;
+        width: 520px; height: 520px; position: relative;
     }
     .poster-slots .glow-tr {
         position: absolute; top: -80px; right: -80px;
@@ -833,40 +854,78 @@
     }
     .poster-slots .inner-slots {
         position: relative; z-index: 2;
-        padding: 44px 44px 40px; height: 100%;
+        padding: 44px 36px 40px; height: 100%; box-sizing: border-box;
         display: flex; flex-direction: column; justify-content: space-between;
+    }
+    /* Top bar: logo only (badge removed) */
+    .struggle-topbar {
+        display: flex; justify-content: flex-end; align-items: center;
+    }
+    /* Challenge: eyebrow + headline */
+    .struggle-headline-block { }
+    .struggle-eyebrow {
+        font-family: 'Manrope', sans-serif; font-size: 9.5px; font-weight: 800;
+        letter-spacing: .14em; text-transform: uppercase;
+        color: rgba(16,19,42,.32); margin: 0 0 8px;
     }
     .headline-slots {
         font-family: 'Manrope', sans-serif;
-        font-size: 30px; font-weight: 900; line-height: 1.08;
-        letter-spacing: -0.03em; color: #10132a; margin-top: 6px;
+        font-size: 26px; font-weight: 900; line-height: 1.08;
+        letter-spacing: -0.03em; color: #10132a; margin: 0;
     }
     .headline-slots span {
         background: linear-gradient(115deg, #1a7fd4 20%, #7c4dda 80%);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    /* 2×2 burden grid */
-    .burden-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-    .burden-card {
-        background: rgba(255,255,255,.82);
-        border: 1px solid rgba(16,19,42,.07);
-        border-radius: 14px; padding: 13px 12px;
-        display: flex; align-items: center; gap: 10px;
-        box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    /* Scenario: numbered barrier rows */
+    .struggle-rows { display: flex; flex-direction: column; }
+    .struggle-row {
+        display: flex; align-items: center; gap: 12px;
+        padding: 14px 0 14px 12px; position: relative;
+        border-top: 1px solid rgba(16,19,42,.07);
     }
-    .burden-card:nth-child(1) { transform: rotate(-0.7deg); }
-    .burden-card:nth-child(2) { transform: rotate(1.0deg); }
-    .burden-card:nth-child(3) { transform: rotate(0.6deg); }
-    .burden-card:nth-child(4) { transform: rotate(-1.1deg); }
-    .burden-icon {
-        width: 32px; height: 32px; border-radius: 50%;
+    .struggle-row:last-child { border-bottom: 1px solid rgba(16,19,42,.07); }
+    /* Coloured left stripe per row */
+    .struggle-row::before {
+        content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+        width: 3px; border-radius: 0 2px 2px 0;
+    }
+    .struggle-row:nth-child(1)::before { background: #1CC4C2; }
+    .struggle-row:nth-child(2)::before { background: #1A82D8; }
+    .struggle-row:nth-child(3)::before { background: #7c4dda; }
+    .row-num {
+        font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 900;
+        letter-spacing: .08em; flex-shrink: 0; width: 20px;
+    }
+    .struggle-row:nth-child(1) .row-num { color: #1CC4C2; }
+    .struggle-row:nth-child(2) .row-num { color: #1A82D8; }
+    .struggle-row:nth-child(3) .row-num { color: #7c4dda; }
+    .row-icon {
+        width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
         display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0;
     }
-    .burden-text {
-        font-family: 'Manrope', sans-serif;
-        font-size: 11.5px; font-weight: 700; color: #10132a;
-        letter-spacing: -0.01em; line-height: 1.35;
+    .row-main {
+        font-family: 'Manrope', sans-serif; font-size: 12.5px; font-weight: 700;
+        color: #10132a; line-height: 1.25; letter-spacing: -0.01em;
+    }
+    .row-sub {
+        display: block; font-family: 'DM Sans', sans-serif;
+        font-size: 10.5px; font-weight: 400; color: rgba(16,19,42,.45);
+        margin-top: 2px; line-height: 1.35;
+    }
+    /* Closing: tinted consequence card with gradient left bar */
+    .struggle-close {
+        position: relative; overflow: hidden;
+        background: linear-gradient(115deg, rgba(26,130,216,.06), rgba(124,77,218,.07));
+        border-radius: 16px; padding: 14px 16px 14px 18px;
+    }
+    .struggle-close-bar {
+        position: absolute; left: 0; top: 0; bottom: 0;
+        width: 3px; background: linear-gradient(to bottom, #1a7fd4, #7c4dda);
+    }
+    .struggle-close-text {
+        font-family: 'DM Sans', sans-serif; font-size: 10.5px; font-weight: 500;
+        color: rgba(16,19,42,.6); line-height: 1.6; margin: 0; font-style: italic;
     }
 </style>
 </head>
@@ -1321,32 +1380,30 @@
 
                     <!-- Header -->
                     <div>
-                        <div class="stats-badge"><span class="stats-pulse"></span> Minggu demi minggu</div>
-                        <h2 class="headline-stats">Dialisis memberi kesan<br><span>di luar waktu rawatan.</span></h2>
+                        <div class="stats-badge"><span class="stats-pulse"></span> Kesan Dialisis</div>
+                        <h2 class="headline-stats">Dialisis memberi kesan kepada kehidupan<br><span>di luar waktu rawatan.</span></h2>
+                        <p class="stats-body">Rawatan 3 kali seminggu, sekitar 4 jam setiap sesi, mempengaruhi:</p>
                     </div>
 
                     <!-- 2×2 stat card grid -->
                     <div class="stat-grid">
                         <div class="stat-card">
-                            <div class="stat-card-num">3× seminggu</div>
-                            <p class="stat-card-desc">Jadual rawatan tetap setiap minggu</p>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-card-num">~4 jam</div>
-                            <p class="stat-card-desc">Sebahagian besar setiap sesi rawatan</p>
-                        </div>
-                        <div class="stat-card">
                             <div class="stat-card-num">Pekerjaan</div>
-                            <p class="stat-card-desc">Waktu bekerja, syif &amp; pendapatan</p>
+                            <p class="stat-card-desc">Waktu bekerja, syif &amp; sumber pendapatan</p>
                         </div>
                         <div class="stat-card">
                             <div class="stat-card-num">Keluarga</div>
-                            <p class="stat-card-desc">Masa bersama orang yang tersayang</p>
+                            <p class="stat-card-desc">Masa bersama pasangan, anak-anak &amp; insan tersayang</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-num">Kehidupan harian</div>
+                            <p class="stat-card-desc">Waktu rehat, urusan peribadi &amp; aktiviti harian</p>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-num">Perancangan perjalanan</div>
+                            <p class="stat-card-desc">Merancang urusan &amp; perjalanan menjadi lebih sukar</p>
                         </div>
                     </div>
-
-                    <!-- Emotional closing -->
-                    <p class="emotional-close">Pesakit memerlukan pilihan yang <span>sesuai dengan kehidupan</span> —<br>bukan sekadar menerima slot yang ada.</p>
 
                     <!-- ECG + logo -->
                     <div>
@@ -1388,8 +1445,13 @@
                 <div class="glow-bl"></div>
                 <div class="inner-lifefit">
                     <div class="content-top">
-                        <h1 class="headline-light">Hidup anda tak patut<br><span class="grad-light">berhenti untuk<br>dialisis.</span></h1>
-                        <p class="subline-light">Degup sedang meneroka cara untuk membantu pesakit mendapatkan slot dialisis yang lebih sesuai dengan kehidupan harian mereka.</p>
+                        <h1 class="headline-light">Sokongan Dialisis<br><span class="grad-light">Untuk Kehidupan Anda</span></h1>
+                    </div>
+
+                    <!-- Context card: body text as distinct visual section -->
+                    <div class="lf-body-card">
+                        <div class="lf-body-bar"></div>
+                        <p class="subline-light">Degup sedang meneroka cara untuk membantu anda mendapatkan slot dialisis yang lebih sesuai dengan rutin dan keperluan harian.</p>
                     </div>
 
                     <div class="ecg-light-wrap">
@@ -1439,28 +1501,22 @@
                         <div class="divider-howdegup"></div>
                     </div>
 
-                    <!-- 3-step flow card -->
-                    <div class="step-flow-card">
-                        <div class="step-flow-item">
-                            <div class="step-flow-num sfn-1">01</div>
-                            <div class="step-flow-content">
-                                <span class="step-flow-title">Kongsikan keperluan anda</span>
-                                <span class="step-flow-desc">Masa pilihan, lokasi dan butiran rawatan</span>
-                            </div>
+                    <!-- 3-step cards — each independent, with ghosted watermark number -->
+                    <div class="steps-stack">
+                        <div class="step-card">
+                            <div class="step-card-wm">01</div>
+                            <span class="step-card-title">Kongsikan keperluan anda</span>
+                            <span class="step-card-desc">Masa pilihan, lokasi dan butiran rawatan</span>
                         </div>
-                        <div class="step-flow-item">
-                            <div class="step-flow-num sfn-2">02</div>
-                            <div class="step-flow-content">
-                                <span class="step-flow-title">Terokai pilihan yang sesuai</span>
-                                <span class="step-flow-desc">Lihat pusat dan slot yang mungkin sepadan</span>
-                            </div>
+                        <div class="step-card">
+                            <div class="step-card-wm">02</div>
+                            <span class="step-card-title">Terokai pilihan yang sesuai</span>
+                            <span class="step-card-desc">Lihat pusat dan slot yang mungkin sepadan</span>
                         </div>
-                        <div class="step-flow-item">
-                            <div class="step-flow-num sfn-3">03</div>
-                            <div class="step-flow-content">
-                                <span class="step-flow-title">Kurangkan urusan berulang</span>
-                                <span class="step-flow-desc">Kurang panggilan, lebih mudah merancang</span>
-                            </div>
+                        <div class="step-card">
+                            <div class="step-card-wm">03</div>
+                            <span class="step-card-title">Kurangkan urusan berulang</span>
+                            <span class="step-card-desc">Kurang panggilan, lebih mudah merancang</span>
                         </div>
                     </div>
 
@@ -1504,75 +1560,64 @@
                 <div class="glow-bl"></div>
                 <div class="inner-slots">
 
-                    <!-- Header -->
-                    <div>
-                        <p class="problem-label">Realiti Pesakit</p>
-                        <h2 class="headline-slots">Mencari slot yang sesuai<br><span>boleh menjadi cabaran.</span></h2>
+                    <!-- Challenge: logo + eyebrow + headline (grouped as one section) -->
+                    <div class="struggle-headline-block">
+                        <div class="struggle-topbar">
+                            <div class="logo-row">
+                                <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true"
+                                     style="width:28px;height:28px;object-fit:contain;" alt="Degup">
+                                <span class="logo-name-light">DEGUP</span>
+                            </div>
+                        </div>
+                        <p class="struggle-eyebrow" style="margin-top:16px;">Realiti Pesakit</p>
+                        <h2 class="headline-slots">Mencari slot yang sesuai<br>boleh menjadi satu <span>cabaran.</span></h2>
                     </div>
 
-                    <!-- Chat thread -->
-                    <div class="chat-thread">
-                        <div class="chat-r">
-                            <div class="bub bub-r">Masih ada slot kosong pagi?</div>
-                        </div>
-                        <div class="chat-l">
-                            <div class="bub bub-l sk1">Tiada slot pagi, maaf.</div>
-                        </div>
-                        <div class="chat-r">
-                            <div class="bub bub-r sk2">Terpaksa ubah jadual kerja lagi...</div>
-                        </div>
-                    </div>
-
-                    <!-- 2×2 burden grid -->
-                    <div class="burden-grid">
-                        <div class="burden-card">
-                            <div class="burden-icon" style="background:rgba(28,196,194,.12)">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 3 3.34a2 2 0 0 1 1.99-1.15h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 16h-1z" stroke="#1CC4C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Scenario: 3 numbered barrier rows -->
+                    <div class="struggle-rows">
+                        <div class="struggle-row">
+                            <span class="row-num">01</span>
+                            <div class="row-icon" style="background:rgba(28,196,194,.12)">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12 19.79 19.79 0 0 1 3 3.34a2 2 0 0 1 1.99-1.15h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 23 16h-1z"
+                                          stroke="#1CC4C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <span class="burden-text">Hubungi beberapa pusat</span>
+                            <div>
+                                <span class="row-main">Masih ada slot kosong?</span>
+                            </div>
                         </div>
-                        <div class="burden-card">
-                            <div class="burden-icon" style="background:rgba(26,130,216,.12)">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <div class="struggle-row">
+                            <span class="row-num">02</span>
+                            <div class="row-icon" style="background:rgba(26,130,216,.12)">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
                                     <circle cx="12" cy="12" r="10" stroke="#1A82D8" stroke-width="2"/>
                                     <path d="M12 6v6l4 2" stroke="#1A82D8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
-                            <span class="burden-text">Periksa setiap waktu</span>
+                            <div>
+                                <span class="row-main">Adakah waktunya sesuai?</span>
+                                <span class="row-sub">Pagi, petang atau malam?</span>
+                            </div>
                         </div>
-                        <div class="burden-card">
-                            <div class="burden-icon" style="background:rgba(123,53,200,.12)">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                    <rect x="3" y="4" width="18" height="17" rx="3" stroke="#7B35C8" stroke-width="2"/>
-                                    <path d="M3 9h18" stroke="#7B35C8" stroke-width="2"/>
-                                    <path d="M8 2v4M16 2v4" stroke="#7B35C8" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M7 14h5M7 17h3" stroke="#7B35C8" stroke-width="1.8" stroke-linecap="round"/>
+                        <div class="struggle-row">
+                            <span class="row-num">03</span>
+                            <div class="row-icon" style="background:rgba(124,77,218,.12)">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="#7c4dda" stroke-width="2" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="10" r="3" stroke="#7c4dda" stroke-width="2"/>
                                 </svg>
                             </div>
-                            <span class="burden-text">Ubah perancangan harian</span>
-                        </div>
-                        <div class="burden-card">
-                            <div class="burden-icon" style="background:rgba(229,114,52,.11)">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                    <circle cx="12" cy="12" r="10" stroke="#E57234" stroke-width="2"/>
-                                    <line x1="12" y1="8" x2="12" y2="12.5" stroke="#E57234" stroke-width="2.2" stroke-linecap="round"/>
-                                    <circle cx="12" cy="16" r="1" fill="#E57234"/>
-                                </svg>
+                            <div>
+                                <span class="row-main">Dekat dengan rumah atau tempat kerja?</span>
                             </div>
-                            <span class="burden-text">Terima slot kurang sesuai</span>
                         </div>
                     </div>
 
-                    <!-- Footer -->
-                    <div class="bottom-row" style="align-items:center;">
-                        <p class="friction-line">Inilah cabaran yang <span>Degup</span> ingin bantu ringankan.</p>
-                        <div class="logo-row">
-                            <img src="https://github.com/seeashann02/degup_pics/blob/main/logo-transparent-without%20name.png?raw=true"
-                                 style="width:28px;height:28px;object-fit:contain;" alt="Degup">
-                            <span class="logo-name-light" style="font-size:12px;">DEGUP</span>
-                        </div>
+                    <!-- Closing statement -->
+                    <div class="struggle-close">
+                        <div class="struggle-close-bar"></div>
+                        <p class="struggle-close-text">Kadangkala jadual kerja, waktu rehat dan masa bersama keluarga perlu diubah untuk menyesuaikan diri dengan slot yang anda pilih.</p>
                     </div>
 
                 </div>
